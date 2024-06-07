@@ -15,7 +15,9 @@ def makeshorturl(request):
         shorturl_letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@#$%&^'
         shorturl = (''.join(random.sample(shorturl_letters,6)))
         obj = urlModel.objects.create(longurl= longurl, shorturl= shorturl)  #  It is creating and saving an object in a single step
-        created_shorturl = "http://127.0.0.1:8000/" + shorturl
+        full_url = request.build_absolute_uri('/')
+        # created_shorturl = "http://127.0.0.1:8000/" + shorturl                    
+        created_shorturl = full_url + shorturl
     return render(request, 'urlcreated.html', {"shorturl":created_shorturl, 'longurl': longurl})
 
 # When redirecting using the short url
